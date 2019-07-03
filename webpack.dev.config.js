@@ -4,6 +4,7 @@ const webpackConfig = require("./webpack.common.config.js");
 
 module.exports = merge(webpackConfig, {
   mode: "development",
+  entry: ["./styles/main.scss", "./src/index.js"],
   plugins: [
     new MiniCssExtractPlugin()
   ],
