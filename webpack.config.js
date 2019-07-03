@@ -1,18 +1,10 @@
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const merge = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpackConfig = require("./webpack.common.config.js");
 
-module.exports = {
+module.exports = merge(webpackConfig, {
   mode: "production",
-  entry: ["./styles/main.scss", "./src/index.js"],
-  output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "dist")
-  },
   plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ filename: "index.html" }),
     new MiniCssExtractPlugin()
   ],
   module: {
@@ -22,9 +14,21 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              // webpack requires an identifier (ident) in options when {Function}/require is used (Complex Options).
+              // The ident can be freely named as long as it is unique. It's recommended to name it (ident: 'postcss')
+              ident: "postcss",
+              plugins: () => [
+                require("autoprefixer")(),
+                require("cssnano")()
+              ]
+            }
+          },
           "sass-loader"
         ]
       }
     ]
   }
-};
+});
