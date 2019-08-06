@@ -6,7 +6,7 @@ module.exports = merge(webpackConfig, {
   mode: "production",
   entry: {
     "main": ["./styles/main.scss", "./src/index.js"],
-    "main-polyfills": ["@babel/polyfill", "whatwg-fetch", "./src/index.js"],
+    "main-polyfills": ["core-js/stable", "regenerator-runtime/runtime", "whatwg-fetch", "./src/index.js"],
   },
   plugins: [
     new MiniCssExtractPlugin()
