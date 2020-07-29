@@ -1,2 +1,6 @@
 @import "reset";
 @import "colours";
+
+.style-that-requires-prefix {
+  column-count: 3;
+}

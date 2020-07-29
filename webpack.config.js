@@ -1,9 +1,9 @@
-const merge = require("webpack-merge");
+const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpackConfig = require("./webpack.common.config.js");
 
 module.exports = merge(webpackConfig, {
-  mode: "production",
+  mode: "none",
   entry: {
     "main": ["./styles/main.scss", "./src/index.js"],
     "main-polyfills": ["core-js/stable", "regenerator-runtime/runtime", "whatwg-fetch", "./src/index.js"],
@@ -23,8 +23,8 @@ module.exports = merge(webpackConfig, {
               [
                 "@babel/preset-env",
                 {
-                  "useBuiltIns": "entry",
-                  "corejs": "2.6.9"
+                  useBuiltIns: "entry",
+                  corejs: 3
                 }
               ]
             ]
@@ -44,7 +44,7 @@ module.exports = merge(webpackConfig, {
               ident: "postcss",
               plugins: () => [
                 require("autoprefixer")(),
-                require("cssnano")()
+//                require("cssnano")()
               ]
             }
           },

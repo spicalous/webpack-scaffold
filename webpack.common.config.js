@@ -7,6 +7,9 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist")
   },
+  resolve: {
+    modules: [path.resolve(__dirname), "node_modules"]
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ filename: "index.html" }),
