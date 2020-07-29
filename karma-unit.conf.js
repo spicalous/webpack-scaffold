@@ -1,15 +1,19 @@
-const debug = process.argv.some(value => value === "--debug");
 const webpackConfig = require("./webpack.common.config.js");
 
-//const browser = process.argv.some(value => value === "--firefox")
-//  ? ["FirefoxHeadless", "Firefox"]
-//  : ["ChromeHeadless", "Chrome"];
+const isDebug = process.argv.some(value => value === "--debug");
+const useFF = process.argv.some(value => value === "--firefox");
+const browsers = useFF
+  ? isDebug
+    ? ["Firefox"]
+    : ["FirefoxHeadless"]
+  : isDebug
+    ? ["Chrome"]
+    : ["ChromeHeadless"];
 
 module.exports = function(config) {
   config.set({
-    singleRun: !debug,
-    browsers: ["FirefoxHeadless"],
-    // browsers: [debug ? browser[0] : browser[1]],
+    singleRun: !isDebug,
+    browsers: browsers,
     frameworks: ["mocha", "chai"],
     files: ["test/unit/**/*-test.js"],
     reporters: ["progress"],

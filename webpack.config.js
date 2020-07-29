@@ -44,7 +44,7 @@ module.exports = merge(webpackConfig, {
               ident: "postcss",
               plugins: () => [
                 require("autoprefixer")(),
-//                require("cssnano")()
+                require("cssnano")()
               ]
             }
           },
